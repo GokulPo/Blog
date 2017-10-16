@@ -1,0 +1,33 @@
+
+<%= form_for @class, url: create_class_path do  |f| %>
+  <div class="control-group">
+    <!-- Username -->
+    <label class="control-label"  for="username">Class Division</label>
+    <div class="controls">
+      <%= f.text_field :name %>
+      <p class="help-block">Classname can contain any letters or numbers, without spaces</p>
+    </div>
+  </div>
+  <div class="control-group">
+    <!-- Password-->
+    <label class="control-label" for="Number_student">Number of students</label>
+    <div class="controls">
+      <%= f.number_field :max_count , min: 0 %>
+      <p class="help-block">Enter maximum number of students</p>
+    </div>
+  </div>
+    <div class="control-group">
+    <!-- Password-->
+    <label class="control-label" for="Number_student">Assign Teacher</label>
+    <div class="controls">
+      <p class="help-block"></p>
+      <%= f.select :user_id, @users.all.collect {|p| [p.name, p.id]}%>
+    </div>
+  </div>
+  <div class="control-group">
+  <!-- Button -->
+  <div class="controls">
+    <%= f.submit 'create',class: 'btn btn-success' %>
+  </div>
+  </div>
+<% end %>

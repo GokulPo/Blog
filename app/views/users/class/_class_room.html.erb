@@ -1,0 +1,55 @@
+
+
+  <% @classes.each do |f|%>
+    <div class="panel panel-primary kanban-col">
+    <div class="panel-heading">
+        <%= f.name %>
+        <i class="fa fa-2x fa-plus-circle pull-right"></i>
+    </div>
+    <div class="panel-body">
+        <div id="DONE" class="kanban-centered">
+        <% if current_user.admin? || current_user.teacher? %>
+            <article class="kanban-entry grab" id="item5" draggable="true">
+                <div class="kanban-entry-inner">
+
+                    <div class="kanban-label">
+                        <h2><a href="#">Art Ramadani</a> <span>posted a status update</span></h2>
+                        <p>Name: <%= f.name%></p>
+                        <p><%= f.max_count.to_i %></p>
+                        <p><%= f.id %></p>
+                        <%= link_to 'View',user_path(id: f.id), class: 'btn btn-success' %>
+                    </div>
+                </div>
+            </article>
+
+            <article class="kanban-entry grab" id="item6" draggable="true">
+                <div class="kanban-entry-inner">
+                    <div class="kanban-label">
+                        <h2><a href="#">Job Meeting</a></h2>
+                        <h2>Import Student Data</h2>
+                          <%= form_tag import_users_path, multipart: true do  %>
+                            <%= file_field_tag :file %>
+                            <%= submit_tag "Upload" %>
+                          <% end %>
+                    </div>
+                </div>
+            </article>
+
+            <% else %>
+            <article class="kanban-entry grab" id="item6" draggable="true">
+                <div class="kanban-entry-inner">
+                    <div class="kanban-label">
+                        <h2><a href="#">Job Meeting</a></h2>
+                        <h2>Import Student Data</h2>
+                          <%= form_tag import_users_path, multipart: true do  %>
+                            <%= file_field_tag :file %>
+                            <%= submit_tag "Upload" %>
+                          <% end %>
+                    </div>
+                </div>
+            </article>
+            <% end %>
+        </div>
+    </div>
+    </div><!--/span-->
+   <% end %>

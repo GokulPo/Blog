@@ -1,0 +1,97 @@
+ <div id="main">
+  <div class="col-md-12">
+      <div class="row">
+          <div class="col-md-12">
+            <div class="well">
+              <div class="class_create">
+                <%#= render 'users/class/create_student' %>
+                <%= form_for @class, url: create_class_path , remote: true do  |f| %>
+                <div class="control-group">
+                  <!-- Username -->
+                  <label class="control-label"  for="username">Class Division</label>
+                  <div class="controls">
+                    <%= f.text_field :name %>
+                    <p class="help-block">Classname can contain any letters or numbers, without spaces</p>
+                  </div>
+                </div>
+                <div class="control-group">
+                  <!-- Password-->
+                  <label class="control-label" for="Number_student">Number of students</label>
+                  <div class="controls">
+                    <%= f.number_field :max_count %>
+                    <p class="help-block">Enter maximum number of students</p>
+                  </div>
+                </div>
+                <div class="control-group">
+                <!-- Button -->
+                <div class="controls">
+                  <%= f.submit 'create',class: 'btn btn-success' %>
+                </div>
+                </div>
+              <% end %>
+              </div>
+            </div>
+          </div>
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+    <% @classes.each do |f|%>
+      <div class="card">
+        <p>Name<%= f.name%></p>
+        <p><%= f.max_count %></p>
+      </div>
+    <% end %>
+    </div>
+  </div>
+
+</div>
+
+</div><!--/row-offcanvas -->
+<div>
+  <h2>Import Excel Data</h2>
+<%= form_tag import_users_path, multipart: true do  %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>
+
+<h1>Students Marks</h1>
+<table border="1">
+<tr><th>Name</th><th>Roll No</th><th>Marks1</th><th>Marks2</th><th>Marks3</th></tr>
+<%@products.each do |t|%>
+  <tr>
+  <td><%=t.name%></td>
+  <td><%= t.roll_no%></td>
+  <td><%= t.marks1%></td>
+  <td><%= t.marks2%></td>
+  <td><%= t.marks3%></td>
+  </tr>
+  <%end%>
+  </table>
+
+  <p>
+  Download:
+  <%#= link_to "CSV", student_s_home_url(format: "csv") %> |
+  <%= link_to "Excel File", users_path(format: "xls") %>
+</p>
+
+</div>
+   <div class="col-12 col-md-6">
+      <div class="row">
+        <div class="col-8">
+        <%= render 'users/class/class_room' %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="class_create">
+        <!--User Create division -->
+          <%= render 'users/class/create_student' %>
+        </div>
+        <div class="class_create">
+        <!--User Create division -->
+          <%= render 'users/class/create_student' %>
+        </div>
+
+    </div>
+  </div>
