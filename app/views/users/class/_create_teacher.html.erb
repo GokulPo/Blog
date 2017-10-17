@@ -15,6 +15,13 @@
       <p class="help-block">eg.name@example.com...</p>
     </div>
   </div>
+   <div class="control-group">
+    <!-- Email -->
+    <label class="control-label"  for="username">Select Subject</label>
+    <div class="controls">
+      <%= f.select :subject_id, @subjects.all.collect {|p| [p.sub_name, p.id]}%>
+    </div>
+  </div>
   <%= f.hidden_field :role_id, :value => '3' %>
   <div class="control-group">
   <!-- Button -->
@@ -23,3 +30,4 @@
   </div>
   </div>
 <% end %>
+

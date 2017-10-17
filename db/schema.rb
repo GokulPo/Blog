@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171014091934) do
+ActiveRecord::Schema.define(version: 20171017061101) do
 
   create_table "classrooms", force: :cascade do |t|
     t.string "name"
@@ -21,22 +21,41 @@ ActiveRecord::Schema.define(version: 20171014091934) do
     t.index ["user_id"], name: "index_classrooms_on_user_id"
   end
 
+  create_table "passes", force: :cascade do |t|
+    t.integer "subject_id"
+    t.integer "student_id"
+    t.boolean "confirm"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "rolles", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "student_subjects", force: :cascade do |t|
+    t.integer "student_id"
+    t.integer "subject_id"
+  end
+
   create_table "students", force: :cascade do |t|
     t.string "name"
-    t.integer "roll_no"
-    t.integer "marks1"
-    t.integer "marks2"
-    t.integer "marks3"
+    t.integer "role_no"
+    t.integer "malayalam"
+    t.integer "english"
+    t.integer "hindi"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "classroom_id"
     t.boolean "confirm"
+  end
+
+  create_table "subjects", force: :cascade do |t|
+    t.string "sub_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "teachers", force: :cascade do |t|
@@ -63,9 +82,11 @@ ActiveRecord::Schema.define(version: 20171014091934) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.integer "role_id"
+    t.integer "subject_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
+    t.index ["subject_id"], name: "index_users_on_subject_id"
   end
 
 end

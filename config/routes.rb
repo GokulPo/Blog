@@ -9,4 +9,5 @@ Rails.application.routes.draw do
     post 'create_class', to: 'users#create_class'
     post 'create_teacher', to: 'teachers#create_teacher'
     get 'approve_student', to: 'users#approve_student'
+    get 'show_my_class', to: 'users#show_my_class'
 end

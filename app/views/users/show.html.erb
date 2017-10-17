@@ -9,21 +9,20 @@
             <tr>
               <th>Name</th>
               <th>Roll No</th>
-              <th>Marks1</th>
-              <th>Marks2</th>
-              <th>Marks3</th>
-              <th>Verify</th>
+              <th>Malayalam</th>
+              <th>English</th>
+              <th>Hindi</th>
               </tr>
           </thead>
           <tbody>
-            <%@products.each do |t|%>
+            <%@students.each do |t|%>
               <tr>
+              <%= @sub_name %>
               <td><%=t.name%></td>
-              <td><%= t.roll_no%></td>
-              <td><%= t.marks1%></td>
-              <td><%= t.marks2%></td>
-              <td><%= t.marks3%></td>
-              <td><%= link_to_if t.confirm == false, 'Approve' ,approve_student_path(id: t.id)%></td>
+              <td><%= t.role_no%></td>
+              <td><%= t.malayalam%></td>
+              <td><%= t.english %></td>
+              <td><%= t.hindi%></td>
               </tr>
             <%end%>
           </tbody>

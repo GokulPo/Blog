@@ -6,6 +6,7 @@ class UsersController < ApplicationController
     @users = User.where(role_id: 3)
     @classes = Classroom.all
     @products = Student.all
+    @subjects = Subject.all
 
     respond_to do |format|
       format.html
@@ -14,12 +15,14 @@ class UsersController < ApplicationController
   end
   def new
     @product = Student.new
+    @subject = Subject.new
+    @pass = Pass.new
   end
 
   def import
       puts params[:file]
-      Student.import(params[:file])
-      redirect_to users_path, notice: "Products imported."
+     Student.import(params[:file])
+      redirect_to users_path, notice: "Details imported."
   end
 
   def create_class
@@ -40,15 +43,28 @@ class UsersController < ApplicationController
   end
 
   def approve_student
-    @confirm = Student.find(params[:id])
-      @confirm.update(confirm: true)
-    redirect_to users_path
+    @pass = Pass.new(student_id: params[:id], subject_id: params[:subject_id], confirm: true)
+      if @pass.save
+        redirect_to users_path
+      else
+        redirect_to root_path
+      end
 
   end
 
   def show
     @class= Classroom.find(params[:id])
-    @products = @class.students
+    @students = @class.students
+
+  end
+
+  def show_my_class
+    @teacher = current_user
+    @sub_name = @teacher.subject.sub_name
+    @subject_id = @teacher.subject_id
+    @class= Classroom.find(params[:id])
+    @students = @class.students
+    @pass = Pass.all
   end
 
   private
@@ -58,7 +74,7 @@ class UsersController < ApplicationController
     end
 
     def teacher_params
-      params.require(:user).permit(:name,:email,:role_id)
+      params.require(:user).permit(:name,:email,:role_id,:subject_id)
     end
 
 end

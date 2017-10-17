@@ -4,9 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :classes
-  has_many :students,      :through => :classroom
-
+  has_many :classrooms
+  belongs_to :subject
   def admin?
     if self.role_id == 1
       return true

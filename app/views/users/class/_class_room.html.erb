@@ -8,7 +8,7 @@
     </div>
     <div class="panel-body">
         <div id="DONE" class="kanban-centered">
-        <% if current_user.admin? || current_user.teacher? %>
+        <% if current_user.admin? %>
             <article class="kanban-entry grab" id="item5" draggable="true">
                 <div class="kanban-entry-inner">
 
@@ -18,29 +18,42 @@
                         <p><%= f.max_count.to_i %></p>
                         <p><%= f.id %></p>
                         <%= link_to 'View',user_path(id: f.id), class: 'btn btn-success' %>
+                        <%= link_to 'My Subject',show_my_class_path(id: f.id), class: 'btn btn-success' %>
                     </div>
                 </div>
             </article>
-
             <article class="kanban-entry grab" id="item6" draggable="true">
                 <div class="kanban-entry-inner">
                     <div class="kanban-label">
                         <h2><a href="#">Job Meeting</a></h2>
-                        <h2>Import Student Data</h2>
-                          <%= form_tag import_users_path, multipart: true do  %>
+                        <h2>Upload Student Data</h2>
+                          <%= form_tag import_users_path(f.id), multipart: true do  %>
                             <%= file_field_tag :file %>
-                            <%= submit_tag "Upload" %>
+                        <%= submit_tag "Upload" %>
                           <% end %>
                     </div>
                 </div>
             </article>
+        <% elsif current_user.teacher? %>
+            <article class="kanban-entry grab" id="item5" draggable="true">
+                <div class="kanban-entry-inner">
 
+                    <div class="kanban-label">
+                        <h2><a href="#">Art Ramadani</a> <span>posted a status update</span></h2>
+                        <p>Name: <%= f.name%></p>
+                        <p><%= f.max_count.to_i %></p>
+                        <p><%= f.id %></p>
+                        <%= link_to 'View',user_path(id: f.id), class: 'btn btn-success' %>
+                        <%= link_to 'My Subject',show_my_class_path(id: f.id), class: 'btn btn-success' %>
+                    </div>
+                </div>
+            </article>
             <% else %>
             <article class="kanban-entry grab" id="item6" draggable="true">
                 <div class="kanban-entry-inner">
                     <div class="kanban-label">
                         <h2><a href="#">Job Meeting</a></h2>
-                        <h2>Import Student Data</h2>
+                        <h2>Upload Student Data</h2>
                           <%= form_tag import_users_path, multipart: true do  %>
                             <%= file_field_tag :file %>
                             <%= submit_tag "Upload" %>
